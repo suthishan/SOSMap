@@ -25,9 +25,11 @@ import java.util.Calendar;
 
 public class Alertnumreg extends AppCompatActivity {
     DBnum ndb;
+    DatabaseHelper databaseHelper;
 EditText num1, num2;
 Button reg;
 TextView tvname,t;
+User user;
 
 ImageButton upd;
 String name;
@@ -37,6 +39,7 @@ String name;
         setContentView(R.layout.activity_alertnumreg);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        user = new User();
         num1=(EditText)findViewById(R.id.m1);
         num2=(EditText)findViewById(R.id.m2);
         reg=(Button) findViewById(R.id.rmob);
@@ -87,6 +90,7 @@ String name;
             }
         });
         ndb=new DBnum(this);
+        databaseHelper = new DatabaseHelper(this);
         tvname=(TextView) findViewById(R.id.tvname);
         t=(TextView) findViewById(R.id.tvwish);
 
@@ -104,7 +108,10 @@ String name;
                 }
                 else {
                     boolean re = ndb.insertnum(num1.getText().toString(), num2.getText().toString());
+                    user.setNumber1(num1.getText().toString());
+                    user.setNumber2(num2.getText().toString());
                     if (re) {
+                        databaseHelper.updateUser(user);
                         Toast.makeText(Alertnumreg.this, " Successfully added number", Toast.LENGTH_SHORT).show();
                         Intent mi = new Intent(Alertnumreg.this, MapsActivity.class);
                         startActivity(mi);
