@@ -32,6 +32,10 @@ public class Home extends AppCompatActivity {
     ImageButton upd;
     String edn1, edn2;
     String name;
+    DatabaseHelper databaseHelper;
+    User user;
+    PrefManager preferenceData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,14 @@ public class Home extends AppCompatActivity {
        // ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE},1);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        preferenceData = new PrefManager(this);
+
         num1=(EditText)findViewById(R.id.m1);
         num2=(EditText)findViewById(R.id.m2);
         reg=(FloatingActionButton) findViewById(R.id.rmob);
         mydb = new DBnum(this);
+        databaseHelper = new DatabaseHelper(this);
+        user = new User();
         skp=(TextView) findViewById(R.id.skp);
         skp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +132,13 @@ public class Home extends AppCompatActivity {
              
                 boolean is=ndb.updatenum(num1.getText().toString(),num2.getText().toString());
                 if(is){
+                    user.setNumber1(num1.getText().toString());
+                    user.setNumber2(num2.getText().toString());
+                    databaseHelper.updateUser(user);
+                    Toast.makeText(Home.this, user.getEmail(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, user.getNumber1(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, user.getNumber2(), Toast.LENGTH_SHORT).show();
+                    preferenceData.setLogin(true);
                     Toast.makeText(Home.this, " update number", Toast.LENGTH_SHORT).show();
                     Intent mi=new Intent (Home.this,MapsActivity.class);
                     startActivity(mi);
