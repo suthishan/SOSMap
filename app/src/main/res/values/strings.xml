@@ -26,4 +26,10 @@
     <string name="gps_unavailable">GPS Unavailable.</string>
     <string name="please_check_your_gps_connectivity">Please Check Your GPS Connectivity.</string>
     <string name="turn_on_location">Turn on location</string>
+
+    <string name="error_message_email">Enter Valid Email</string>
+    <string name="error_message_name">Enter Full Name</string>
+    <string name="error_message_password">Enter Password</string>
+    <string name="error_message_mobile">Enter Mobile</string>
+
 </resources>
