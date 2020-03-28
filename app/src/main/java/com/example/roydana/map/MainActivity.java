@@ -4,13 +4,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.roydana.map.helpers.InputValidation;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CALL_PHONE;
@@ -19,32 +25,47 @@ import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.SEND_SMS;
 import static android.Manifest.permission_group.CAMERA;
 
-public class MainActivity extends AppCompatActivity {
-FloatingActionButton fab;
-Button login;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private final AppCompatActivity activity = MainActivity.this;
+
+    FloatingActionButton fab;
+    Button login;
+    DatabaseHelper databaseHelper;
+    private InputValidation inputValidation;
+
     public static final int RequestPermissionCode = 7;
+
+    private TextInputLayout l2,l3;
+
+    private TextInputEditText email, psw;
+    PrefManager preferenceData;
+    User user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        user = new User();
+
+        initViews();
+        initListeners();
+        initObjects();
+
+    }
+
+    private void initViews() {
+
+        l2 = (TextInputLayout) findViewById(R.id.l2);
+        l3 = (TextInputLayout) findViewById(R.id.l3);
+        email = (TextInputEditText) findViewById(R.id.email);
+        psw = (TextInputEditText) findViewById(R.id.psw);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         login = (Button) findViewById(R.id.login);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent rg = new Intent(MainActivity.this, Register.class);
-                startActivity(rg);
-            }
-        });
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent rg = new Intent(MainActivity.this, Home.class);
-                startActivity(rg);
-            }
-        });
+
         if (CheckingPermissionIsEnabledOrNot()) {
             Toast.makeText(MainActivity.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
         }
@@ -57,9 +78,22 @@ Button login;
 
         }
 
-
-
     }
+
+    private void initListeners() {
+        login.setOnClickListener(this);
+        fab.setOnClickListener(this);
+    }
+
+    private void initObjects() {
+        databaseHelper = new DatabaseHelper(activity);
+        inputValidation = new InputValidation(activity);
+        preferenceData = new PrefManager(activity);
+    }
+
+
+
+
     private void RequestMultiplePermission() {
 
         // Creating String Array with Permissions.
@@ -112,5 +146,57 @@ Button login;
                 third == PackageManager.PERMISSION_GRANTED;
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login:
+                verifyFromSQLite();
+                break;
+            case R.id.fab:
+                // Navigate to RegisterActivity
+                Intent intentRegister = new Intent(getApplicationContext(), Register.class);
+                startActivity(intentRegister);
+                break;
+        }
+
+    }
+
+    private void verifyFromSQLite() {
+
+        if (!inputValidation.isInputEditTextFilled(email, l2, getString(R.string.error_message_email))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextEmail(email, l2, getString(R.string.error_message_email))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextFilled(psw, l3, getString(R.string.error_message_password))) {
+            return;
+        }
+
+        if (databaseHelper.checkUserPass(email.getText().toString().trim()
+                , psw.getText().toString().trim())) {
+
+            preferenceData.setLogin(true);
+            preferenceData.setMainScreenOpen(0);
+            Toast.makeText(MainActivity.this, user.getEmail(), Toast.LENGTH_LONG).show();
+            Intent accountsIntent = new Intent(activity, Home.class);
+            accountsIntent.putExtra("EMAIL", email.getText().toString().trim());
+            emptyInputEditText();
+            startActivity(accountsIntent);
+
+
+        } else {
+            Toast.makeText(MainActivity.this, "No User Found..!", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
+
+    private void emptyInputEditText() {
+        email.setText(null);
+        psw.setText(null);
     }
 }
