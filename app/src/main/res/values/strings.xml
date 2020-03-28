@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Map</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hai!</string>
+
+    <string name="slide_2_title">welcome</string>
+
+
+    <string name="slide_3_title">EMERGENCYContact</string>
+
+
+    <string name="play_again">Play Again</string>
+
+    <string name="settings">settings</string>
+
+    <string name="permission_denied_explanation">You have not granted location permission. So the service cannot be started.</string>
+
+    <string name="permission_rationale">Please grant location permission to start the service</string>
+
+    <string name="no_location">No Location</string>
+    <string name="gps_unavailable">GPS Unavailable.</string>
+    <string name="please_check_your_gps_connectivity">Please Check Your GPS Connectivity.</string>
+    <string name="turn_on_location">Turn on location</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#365629</color>
+    <color name="colorPrimaryDark">#303030</color>
+    <color name="colorAccent">#e8433b</color>
+
+    <color name="red">#fff44336</color>
+
+    <color name="text_primary">#ff212121</color>
+
+    <color name="text_secondary">#ff727272</color>
+
+    <color name="green">#ff6cc887</color>
+
+    <color name="dark_blue">#ff1b5670</color>
+
+    <color name="bright_blue">#ff1b88a0</color>
+
+    <color name="secondary">#808080</color>
+
+    <color name="cloudy_blue">#ffd8e4e6</color>
+
+    <color name="notification_time">#80333333</color>
+
+
+    <color name="divider">#ff818181</color>
+
+    <color name="white">#ffffff</color>
+
+
+    <color name="card_blue">#adccff</color>
+
+
+    <color name="header">#2F80ED</color>
+
+    <color name="app_background">#303F9F</color>
+
+    <color name="primary">#00BCD4</color>
+    <color name="primary_dark">#0097A7</color>
+    <color name="accent">#FFEB3B</color>
+    <color name="accent_translucent">#80FFEB3B</color>
+
+    <color name="custom_main">#44619c</color>
+    <color name="custom_main_dark">#304070</color>
+
+    <color name="custom_bg_grey">#F0F0F0</color>
+
+    <color name="custom_txt_whitegray">#D5D5D5</color>
+    <color name="custom_txt_midiumgray">#909090</color>
+    <color name="custom_txt_darkgray">#606060</color>
+
+    <color name="black_87">#de000000</color>
+    <color name="black_54">#8a000000</color>
+    <color name="black_20">#14000000</color>
+    <color name="black_30">#1d000000</color>
+
+    <color name="tab_disable">#979797</color>
+    <color name="tab_enable">#FFFFFF</color>
+    <color name="tab_checked">#F3CD70</color>
+    <color name="tab_unchecked">#FFFFFF</color>
+
+
+
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#909192</color>
+    <color name="dot_dark_screen2">#909192</color>
+    <color name="dot_dark_screen3">#909192</color>
+
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#ffffff</color>
+    <color name="dot_light_screen2">#ffffff</color>
+    <color name="dot_light_screen3">#ffffff</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen3</item>
+
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+
+    </array>
+</resources>
